@@ -39,6 +39,11 @@ body {
   object-fit: cover;
 }
 
+.main__wrapper {
+  display: flex;
+  height: 70vh;
+}
+
 .main {
   background-color: var(--color-green-200);
   flex: 75%;
@@ -49,11 +54,6 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.main__wrapper {
-  display: flex;
-  height: 70vh;
 }
 
 .aside {
