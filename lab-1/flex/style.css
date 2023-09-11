@@ -2,6 +2,7 @@
   --color-blue: #70a7df;
   --color-green-100: #93b071;
   --color-green-200: #bce68b;
+  --color-pink-100: #fac0f6;
 }
 
 html {
@@ -18,8 +19,11 @@ body {
   height: 100vh;
 }
 
+.section {
+  padding: 10px;
+}
+
 .header {
-  background-color: var(--color-blue);
   height: 30vh;
 }
 
@@ -28,8 +32,13 @@ body {
   height: 50%;
 }
 
+.header__text {
+  background-color: var(--color-blue);
+}
+
 .header__image-wrapper {
   width: 100%;
+  background-color: var(--color-pink-100);
 }
 
 .header__image-wrapper .header__image {
