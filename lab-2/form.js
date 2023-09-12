@@ -1,30 +1,29 @@
 'use strict';
 
-/*-----------------TASK-1------------------ */
-const refs = {
+const REFS = {
   form: document.querySelector('.form'),
   formOutputContainer: document.querySelector('.form-output-container'),
 };
 
-const rules = {
-  group: new RegExp(/^[А-ЯҐЄІЇ]{2}-[0-9]{2}$/),
+const RULES = {
   credentials: new RegExp(
     /^[А-ЯҐЄІЇ]{1}[а-яґєії]+\s{1}([а-яґєіїА-ЯҐЄІЇ]{1}.){2}$/
   ),
   email: new RegExp(/^[a-z\.-]+@[a-z]+\.com$/),
-  phone: new RegExp(/^\([0-9]{3}\)-[0-9]{3}-[0-9]{2}-[0-9]{2}$/),
   address: new RegExp(/^м\.\s[а-яґєіїА-ЯҐЄІЇ]+$/),
+  birthdayDate: new RegExp(/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/),
+  telegram: new RegExp(/^@[a-z]*_[a-z]*$/),
 };
 
 const resetErrors = (names) => {
   for (const name of names) {
-    const inputEl = refs.form.querySelector(`[name='${name}']`);
+    const inputEl = REFS.form.querySelector(`[name='${name}']`);
     inputEl.classList.remove('input-invalid');
   }
 };
 
 const resetFormOutput = () => {
-  refs.formOutputContainer.innerHTML = '';
+  REFS.formOutputContainer.innerHTML = '';
 };
 
 const renderFormData = (data) => {
@@ -32,29 +31,30 @@ const renderFormData = (data) => {
     <h2>Введені дані:</h2>
     <ul>
       <li>ПІБ: <span>${data.credentials}</span></li>
-      <li>Група: <span>${data.group}</span></li>
-      <li>Телефон: <span>${data.phone}</span></li>
+      <li>Дата Народження: <span>${data.birthdayDate}</span></li>
       <li>Адреса: <span>${data.address}</span></li>
       <li>Email: <span>${data.email}</span></li>
+      <li>Telegram: <span>${data.telegram}</span></li>
     </ul>
   `;
 
-  refs.formOutputContainer.insertAdjacentHTML('afterbegin', markup);
+  REFS.formOutputContainer.insertAdjacentHTML('afterbegin', markup);
 };
 
 const validateForm = () => {
   const validationErrors = [];
   const formValues = {};
 
-  const formData = new FormData(refs.form);
+  const formData = new FormData(REFS.form);
 
   resetErrors(formData.keys());
   resetFormOutput();
 
   for (const [key, value] of formData) {
-    const isValueValid = rules[key].test(value.trim());
+    const isValueValid = RULES[key].test(value.trim());
+
     if (!isValueValid) {
-      const inputEl = refs.form.querySelector(`[name='${key}']`);
+      const inputEl = REFS.form.querySelector(`[name='${key}']`);
       inputEl.classList.add('input-invalid');
       validationErrors.push({ name: key });
     } else {
@@ -68,7 +68,7 @@ const validateForm = () => {
   };
 };
 
-refs.form.addEventListener('submit', (e) => {
+REFS.form.addEventListener('submit', (e) => {
   e.preventDefault();
   const { validationErrors, formValues } = validateForm();
 
@@ -76,5 +76,3 @@ refs.form.addEventListener('submit', (e) => {
 
   renderFormData(formValues);
 });
-
-/*-----------------TASK-1------------------ */

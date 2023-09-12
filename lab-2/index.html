@@ -18,7 +18,8 @@
     <script defer src="./table.js"></script>
   </head>
   <body>
-    <!-- Варіант 10 -->
+    <!-- Варіант 6 -->
+    <!-- ПІБ, Дата народження, адреса, e-mail, telegram -->
     <main class="main-container">
       <div class="task-container">
         <form class="form">
@@ -32,12 +33,13 @@
             />
           </div>
           <div class="form__item">
-            <label for="group">Група</label>
-            <input placeholder="Група" type="text" name="group" id="group" />
-          </div>
-          <div class="form__item">
-            <label for="phone">Телефон</label>
-            <input placeholder="Телефон" type="text" name="phone" id="phone" />
+            <label for="birthdayDate">Дата Народження</label>
+            <input
+              placeholder="Дата Народження"
+              type="text"
+              name="birthdayDate"
+              id="birthdayDate"
+            />
           </div>
           <div class="form__item">
             <label for="address">Адреса</label>
@@ -51,6 +53,15 @@
           <div class="form__item">
             <label for="email">Email</label>
             <input placeholder="Email" type="text" name="email" id="email" />
+          </div>
+          <div class="form__item">
+            <label for="telegram">Telegram</label>
+            <input
+              placeholder="Telegram"
+              type="text"
+              name="telegram"
+              id="telegram"
+            />
           </div>
           <div class="form__item">
             <input type="submit" value="✅ Підтвердити" />
