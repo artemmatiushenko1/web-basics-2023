@@ -5,19 +5,19 @@ class TableView {
     cols: 6,
     rows: 6,
   };
+
   refs = {
     table: document.querySelector('.table'),
     colorPicker: document.querySelector('.color-picker'),
   };
 
-  variantNumber = 55 % (this.size.rows * this.size.cols);
-  preventClick = false;
-  timer = null;
-  clickEventDelay = 100;
+  variantNumber = 66 % (this.size.rows * this.size.cols);
 
-  constructor() {
-    this.init();
-  }
+  preventClick = false;
+
+  timer = null;
+
+  CLICK_EVENT_DELAY = 100;
 
   generateCells() {
     let counter = 1;
@@ -56,14 +56,25 @@ class TableView {
     e.target.style.backgroundColor = this.refs.colorPicker.value;
   }
 
-  handleDbClick() {
+  getCellCoordsByNumber(cellNumber) {
+    const x = Math.floor((cellNumber - 1) / this.size.rows);
+    const y = (cellNumber - 1) % this.size.cols;
+    return [x, y];
+  }
+
+  handleDbClick(e) {
     const cells = this.refs.table.querySelectorAll('td');
     const color = this.getRandomColor();
 
+    const targetCellNumber = Number(e.target.dataset['id']);
+    const [targetCellX, tagetCellY] =
+      this.getCellCoordsByNumber(targetCellNumber);
+
     cells.forEach((cell) => {
       const cellNumber = Number(cell.dataset['id']);
+      const [cellX, cellY] = this.getCellCoordsByNumber(cellNumber);
 
-      if (cellNumber !== this.variantNumber) {
+      if (cellX <= targetCellX && cellY <= tagetCellY) {
         cell.style.backgroundColor = color;
       }
     });
@@ -76,10 +87,10 @@ class TableView {
       `td[data-id="${this.variantNumber}"]`
     );
 
-    myCell.addEventListener('dblclick', () => {
+    myCell.addEventListener('dblclick', (e) => {
       clearTimeout(this.timer);
       this.preventClick = true;
-      this.handleDbClick();
+      this.handleDbClick(e);
     });
 
     myCell.addEventListener('click', (e) => {
@@ -89,11 +100,11 @@ class TableView {
         }
 
         this.preventClick = false;
-      }, this.clickEventDelay);
+      }, this.CLICK_EVENT_DELAY);
     });
 
     myCell.addEventListener('mouseover', this.handleCellMouseOver.bind(this));
   }
 }
 
-new TableView();
+new TableView().init();
