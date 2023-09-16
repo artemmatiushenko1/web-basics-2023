@@ -1,17 +1,10 @@
 'use strict';
 
 class TableView {
-  size = {
-    cols: 6,
-    rows: 6,
-  };
-
   refs = {
     table: document.querySelector('.table'),
     colorPicker: document.querySelector('.color-picker'),
   };
-
-  variantNumber = 66 % (this.size.rows * this.size.cols);
 
   preventClick = false;
 
@@ -19,19 +12,26 @@ class TableView {
 
   CLICK_EVENT_DELAY = 100;
 
+  constructor(cols, rows, variant) {
+    this.cols = cols;
+    this.rows = rows;
+    this.variantNumber = variant % (rows * cols);
+  }
+
   generateCells() {
     let counter = 1;
 
-    for (let i = 0; i < this.size.rows; i++) {
+    for (let i = 0; i < this.rows; i++) {
       const row = document.createElement('tr');
 
-      for (let j = 0; j < this.size.cols; j++) {
+      for (let j = 0; j < this.cols; j++) {
         const col = document.createElement('td');
         col.dataset['id'] = counter;
         col.textContent = counter;
         row.appendChild(col);
         counter++;
       }
+
       this.refs.table.appendChild(row);
     }
   }
@@ -57,8 +57,8 @@ class TableView {
   }
 
   getCellCoordsByNumber(cellNumber) {
-    const x = Math.floor((cellNumber - 1) / this.size.rows);
-    const y = (cellNumber - 1) % this.size.cols;
+    const x = Math.floor((cellNumber - 1) / this.rows);
+    const y = (cellNumber - 1) % this.cols;
     return [x, y];
   }
 
@@ -107,4 +107,8 @@ class TableView {
   }
 }
 
-new TableView().init();
+const ROWS = 6;
+const COLS = 6;
+const VARIANT = 66;
+
+new TableView(COLS, ROWS, VARIANT).init();
