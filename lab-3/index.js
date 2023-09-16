@@ -8,7 +8,7 @@ class UsersStore {
       );
       const data = await res.json();
       this.users = data.results;
-    } catch (_) {
+    } catch {
       throw new Error('⛔ Something went wrong! Try again');
     }
   }
@@ -41,14 +41,14 @@ class UsersView {
         return `
         <li class="user-item">
           <img
+            alt="user picture"
             class="user-item__img"
             src="${user.picture.medium}"
-            alt="user picture"
           />
-          <p class="user-item__detail">Cell: ${user.cell}</p>
+          <p class="user-item__detail">Name: ${user.name.first} ${user.name.last}</p>
+          <p class="user-item__detail">City: ${user.location.city}</p>
           <p class="user-item__detail">Country: ${user.location.country}</p>
           <p class="user-item__detail">Postcode: ${user.location.postcode}</p>
-          <p class="user-item__detail">Email: ${user.email}</p>
         </li>`;
       })
       .join('');
@@ -91,4 +91,4 @@ class UsersView {
   }
 }
 
-const usersView = new UsersView(new UsersStore());
+new UsersView(new UsersStore());

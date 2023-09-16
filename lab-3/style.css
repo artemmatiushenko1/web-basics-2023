@@ -41,6 +41,8 @@ body {
 }
 
 .user-item {
+  flex: 250px;
+  flex-shrink: 0;
   background-color: #fff;
   border-radius: 5px;
   padding: 20px;
